@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Field, withFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 
-function UserForm({ errors, touched, values, status }) {
+function UserForm({ 
+    errors, 
+    touched, 
+    values, 
+    status, 
+    users, 
+    addNewUser 
+}) {
+    useEffect(() => {
+        if (status) {
+            addNewUser(status)
+        }
+    }, [status])
+    
     return (
         <>
         <h2>Create Account</h2>
