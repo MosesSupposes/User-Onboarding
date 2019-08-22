@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Field, withFormik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
 
 function UserForm({ errors, touched, values, status }) {
     return (
@@ -28,7 +29,7 @@ function UserForm({ errors, touched, values, status }) {
             {touched.tos && errors.tos && (
                 <p className="error">{errors.tos}</p>
             )} 
-            <button role="submit">Submit</button>
+            <button type="submit">Submit</button>
         </Form>
         </>
     )
@@ -48,7 +49,17 @@ const FormikUserForm = withFormik({
         email: Yup.string().email().required(),
         password: Yup.string().min(6).required(),
         tos: Yup.bool().oneOf([true], 'Please agree to our terms of service')
-    })
+    }),
+
+    handleSubmit(values, { setStatus }) {
+        axios
+            .post('https://reqres.in/api/users', values)
+            .then(res => {
+                setStatus(res.data)
+                console.log(res.data)
+            })
+            .catch(err => console.log(err.response))
+    }
 })(UserForm)
 
 export default FormikUserForm
