@@ -14,8 +14,8 @@ export default function Users(props) {
 function User(props) {
     return (
         <div className="user">
-            <p>Name: {props.user.name}</p>
-            <p>Email: {props.user.email}</p>
+            <p><span className="label">Name:</span> {props.user.name}</p>
+            <p><span className="label">Email:</span> {props.user.email}</p>
         </div>
     )
 } 
